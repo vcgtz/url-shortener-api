@@ -1,0 +1,26 @@
+{
+  "name": "url-shortener-api",
+  "version": "0.0.1",
+  "description": "API to convert an URL into a short URL",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vcgtz/url-shortener-api.git"
+  },
+  "keywords": [
+    "url-shortener"
+  ],
+  "author": "Vicente Gutiérrez <gtz.rvera@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vcgtz/url-shortener-api/issues"
+  },
+  "homepage": "https://github.com/vcgtz/url-shortener-api#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}
