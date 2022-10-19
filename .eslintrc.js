@@ -15,6 +15,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    'no-plusplus': 'off',
     'prettier/prettier': 'error',
   },
 };
