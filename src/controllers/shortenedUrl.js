@@ -21,6 +21,7 @@ const post = async (req, res) => {
   const existingShortenedUrl = await ShortenedUrl.findOne({
     source: url,
   }).exec();
+
   if (existingShortenedUrl) {
     return res.json({
       status: 'ok',
