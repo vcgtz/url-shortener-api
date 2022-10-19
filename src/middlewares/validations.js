@@ -1,10 +1,4 @@
-const isUrlValid = (url) => {
-  try {
-    return Boolean(new URL(url));
-  } catch (err) {
-    return false;
-  }
-};
+const { isUrlValid } = require('../helpers/url');
 
 const validateNewShortenedUrl = (req, res, next) => {
   const { url, urlCode } = req.body;
