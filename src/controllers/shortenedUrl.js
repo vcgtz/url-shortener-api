@@ -18,28 +18,15 @@ const generateRandomCode = () => {
 const post = async (req, res) => {
   const { url, urlCode } = req.body;
 
-  if (urlCode) {
-    const existingShortenedUrl = await ShortenedUrl.findOne({
-      urlCode,
-    }).exec();
-
-    if (existingShortenedUrl) {
-      return res.json({
-        status: 'ok',
-        data: existingShortenedUrl,
-      });
-    }
-  }
-
   let code = urlCode;
   if (!code) {
     code = generateRandomCode().join('');
-    let coincidences = await ShortenedUrl.count({ urlCode: code });
+    let exists = await ShortenedUrl.existsUrlCode(urlCode);
 
-    while (coincidences) {
+    while (exists) {
       code = generateRandomCode().join('');
       // eslint-disable-next-line no-await-in-loop
-      coincidences = await ShortenedUrl.count({ urlCode: code });
+      exists = await ShortenedUrl.existsUrlCode(urlCode);
     }
   }
 

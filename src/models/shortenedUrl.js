@@ -19,4 +19,9 @@ const shortenedUrlSchema = new Schema(
   },
 );
 
+// eslint-disable-next-line func-names
+shortenedUrlSchema.statics.existsUrlCode = async function (code) {
+  return (await this.count({ urlCode: code })) > 0;
+};
+
 module.exports = model('ShortenedUrl', shortenedUrlSchema);
