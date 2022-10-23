@@ -18,15 +18,17 @@ const generateRandomCode = () => {
 const post = async (req, res) => {
   const { url, urlCode } = req.body;
 
-  const existingShortenedUrl = await ShortenedUrl.findOne({
-    source: url,
-  }).exec();
+  if (urlCode) {
+    const existingShortenedUrl = await ShortenedUrl.findOne({
+      urlCode,
+    }).exec();
 
-  if (existingShortenedUrl) {
-    return res.json({
-      status: 'ok',
-      data: existingShortenedUrl,
-    });
+    if (existingShortenedUrl) {
+      return res.json({
+        status: 'ok',
+        data: existingShortenedUrl,
+      });
+    }
   }
 
   let code = urlCode;
