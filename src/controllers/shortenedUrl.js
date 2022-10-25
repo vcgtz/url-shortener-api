@@ -15,7 +15,7 @@ const generateRandomCode = () => {
   return code;
 };
 
-const post = async (req, res) => {
+const store = async (req, res) => {
   const { url, urlCode } = req.body;
 
   let code = urlCode;
@@ -55,5 +55,5 @@ const post = async (req, res) => {
 };
 
 module.exports = {
-  post,
+  store,
 };
