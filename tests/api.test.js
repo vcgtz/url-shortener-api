@@ -1,4 +1,10 @@
-const { describe, it, expect, beforeEach, afterEach } = require('@jest/globals');
+const {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  afterEach,
+} = require('@jest/globals');
 const request = require('supertest');
 const mongoose = require('../src/config/mongoose');
 const ShortenedUrl = require('../src/models/shortenedUrl');

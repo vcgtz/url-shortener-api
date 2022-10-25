@@ -15,6 +15,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    'no-console': 'off',
     'no-plusplus': 'off',
     'prettier/prettier': 'error',
   },
