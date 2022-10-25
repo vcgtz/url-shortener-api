@@ -16,7 +16,7 @@ const shortenedUrlSchema = new Schema(
   {
     timestamps: true,
     // eslint-disable-next-line prettier/prettier
-  },
+  }
 );
 
 // eslint-disable-next-line func-names
