@@ -1,10 +1,11 @@
 const ShortenedUrl = require('../models/shortenedUrl');
+const status = require('../constants/status');
 
 const redirect = async (req, res) => {
   const { code } = req.params;
 
   if (!code || !(await ShortenedUrl.existsUrlCode(code))) {
-    return res.status(404).json({
+    return res.status(status.NOT_FOUND).json({
       status: 'err',
       errors: [
         {
@@ -17,11 +18,11 @@ const redirect = async (req, res) => {
   try {
     const shortenedUrl = await ShortenedUrl.findOne({ urlCode: code }).exec();
 
-    return res.redirect(301, shortenedUrl.source);
+    return res.redirect(status.TEMPORARY_REDIRECT, shortenedUrl.source);
   } catch (err) {
     console.error(err);
 
-    return res.status(500).json({
+    return res.status(status.SERVER_ERROR).json({
       status: 'err',
       errors: [{ message: 'A problem has ocurred, please try again' }],
     });

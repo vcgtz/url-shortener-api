@@ -1,12 +1,13 @@
 const { isUrlValid } = require('../helpers/url');
 const { isAlphaNumeric } = require('../helpers/strings');
 const ShortenedUrl = require('../models/shortenedUrl');
+const status = require('../constants/status');
 
 const validateNewShortenedUrl = (req, res, next) => {
   const { url, urlCode } = req.body;
 
   if (!isUrlValid(url)) {
-    return res.status(400).json({
+    return res.status(status.BAD_REQUEST).json({
       status: 'err',
       errors: [
         {
@@ -18,7 +19,7 @@ const validateNewShortenedUrl = (req, res, next) => {
 
   if (urlCode) {
     if (ShortenedUrl.existsUrlCode(urlCode)) {
-      return res.status(404).json({
+      return res.status(status.NOT_FOUND).json({
         status: 'err',
         errors: [
           {
@@ -29,7 +30,7 @@ const validateNewShortenedUrl = (req, res, next) => {
     }
 
     if (urlCode.length < 6 || urlCode.length > 24) {
-      return res.status(400).json({
+      return res.status(status.BAD_REQUEST).json({
         status: 'err',
         errors: [
           {
@@ -41,7 +42,7 @@ const validateNewShortenedUrl = (req, res, next) => {
     }
 
     if (!isAlphaNumeric(urlCode)) {
-      return res.status(400).json({
+      return res.status(status.BAD_REQUEST).json({
         status: 'err',
         errors: [
           {

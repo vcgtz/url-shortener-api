@@ -1,5 +1,6 @@
 const rndjs = require('rndjs');
 const ShortenedUrl = require('../models/shortenedUrl');
+const status = require('../constants/status');
 
 const generateRandomCode = () => {
   const code = [];
@@ -40,7 +41,7 @@ const store = async (req, res) => {
   } catch (err) {
     console.error(err);
 
-    return res.status(500).json({
+    return res.status(status.SERVER_ERROR).json({
       status: 'err',
       errors: [
         { message: 'A problem has ocurred generating the shortened url' },
@@ -48,7 +49,7 @@ const store = async (req, res) => {
     });
   }
 
-  return res.json({
+  return res.status(status.OK).json({
     status: 'ok',
     data: shortenedUrl,
   });
