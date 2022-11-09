@@ -3,7 +3,7 @@ const { isAlphaNumeric } = require('../helpers/strings');
 const ShortenedUrl = require('../models/shortenedUrl');
 const status = require('../constants/status');
 
-const validateNewShortenedUrl = (req, res, next) => {
+const validateNewShortenedUrl = async (req, res, next) => {
   const { url, urlCode } = req.body;
 
   if (!isUrlValid(url)) {
@@ -18,7 +18,7 @@ const validateNewShortenedUrl = (req, res, next) => {
   }
 
   if (urlCode) {
-    if (ShortenedUrl.existsUrlCode(urlCode)) {
+    if (await ShortenedUrl.existsUrlCode(urlCode)) {
       return res.status(status.NOT_FOUND).json({
         status: 'err',
         errors: [

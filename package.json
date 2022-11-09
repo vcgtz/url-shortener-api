@@ -9,7 +9,7 @@
     "format:check": "prettier --check \"src/**/*.js\"",
     "lint": "eslint src/**/*.js",
     "start": "node src/index.js",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
