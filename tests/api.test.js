@@ -8,6 +8,7 @@ const {
 const request = require('supertest');
 const mongoose = require('../src/config/mongoose');
 const ShortenedUrl = require('../src/models/shortenedUrl');
+const status = require('../src/constants/status');
 const app = require('../src/server');
 
 describe('Testing the API to create shortened urls', () => {
@@ -20,7 +21,7 @@ describe('Testing the API to create shortened urls', () => {
       .post('/shortener')
       .send({ url: 'https://vicentegtz.com/about/' });
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(status.OK);
     expect(response.body.status).toBe('ok');
   });
 
