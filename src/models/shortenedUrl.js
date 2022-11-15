@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const UniqueId = require('./uniqueId');
 
 const shortenedUrlSchema = new Schema(
   {
@@ -12,6 +13,10 @@ const shortenedUrlSchema = new Schema(
       minLength: 6,
       maxLength: 24,
     },
+    uniqueId: {
+      type: Schema.Types.ObjectId,
+      ref: 'UniqueID',
+    },
   },
   {
     timestamps: true,
@@ -23,5 +28,23 @@ const shortenedUrlSchema = new Schema(
 shortenedUrlSchema.statics.existsUrlCode = async function (code) {
   return (await this.count({ urlCode: code })) > 0;
 };
+
+// eslint-disable-next-line func-names
+shortenedUrlSchema.pre('save', async function (next) {
+  try {
+    const currentId = await UniqueId.count({});
+    const uniqueId = new UniqueId({
+      value: currentId + 1,
+    });
+
+    await uniqueId.save();
+
+    this.uniqueId = uniqueId;
+  } catch (err) {
+    console.log(err);
+  }
+
+  next();
+});
 
 module.exports = model('ShortenedUrl', shortenedUrlSchema);
