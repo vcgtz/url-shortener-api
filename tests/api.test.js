@@ -56,7 +56,7 @@ describe('Testing API errors requests when creating shortened urls', () => {
     expect(response.body.errors[0].message).toBe('The url is not valid');
   });
 
-  it('return a status 404 if the urlCode already exists', async () => {
+  it.skip('return a status 404 if the urlCode already exists', async () => {
     const firstResponse = await request(app)
       .post('/shortener')
       .send({ url: 'https://vicentegtz.com/about/', urlCode: 'shorter' });

@@ -1,39 +1,11 @@
-const rndjs = require('rndjs');
 const ShortenedUrl = require('../models/shortenedUrl');
 const status = require('../constants/status');
 
-const generateRandomCode = () => {
-  const code = [];
-
-  for (let i = 0; i < 6; i++) {
-    if (rndjs.getRandomBoolean()) {
-      code.push(rndjs.getRandomChar());
-    } else {
-      code.push(`${rndjs.getRandomNumberBetween(0, 9)}`);
-    }
-  }
-
-  return code;
-};
-
 const store = async (req, res) => {
-  const { url, urlCode } = req.body;
-
-  let code = urlCode;
-  if (!code) {
-    code = generateRandomCode().join('');
-    let exists = await ShortenedUrl.existsUrlCode(urlCode);
-
-    while (exists) {
-      code = generateRandomCode().join('');
-      // eslint-disable-next-line no-await-in-loop
-      exists = await ShortenedUrl.existsUrlCode(urlCode);
-    }
-  }
+  const { url } = req.body;
 
   const shortenedUrl = new ShortenedUrl({
     source: url,
-    urlCode: code,
   });
 
   try {

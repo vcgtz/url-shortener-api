@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-plusplus': 'off',
+    'implicit-arrow-linebreak': 'off',
     'prettier/prettier': 'error',
   },
 };

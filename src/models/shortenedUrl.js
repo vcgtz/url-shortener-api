@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const UniqueId = require('./uniqueId');
+const { convertToBase62 } = require('../helpers/numbers');
 
 const shortenedUrlSchema = new Schema(
   {
@@ -9,8 +10,7 @@ const shortenedUrlSchema = new Schema(
     },
     urlCode: {
       type: String,
-      required: [true, 'The urlCode is required'],
-      minLength: 6,
+      minLength: 1,
       maxLength: 24,
     },
     uniqueId: {
@@ -40,6 +40,7 @@ shortenedUrlSchema.pre('save', async function (next) {
     await uniqueId.save();
 
     this.uniqueId = uniqueId;
+    this.urlCode = convertToBase62(uniqueId.value);
   } catch (err) {
     console.log(err);
   }

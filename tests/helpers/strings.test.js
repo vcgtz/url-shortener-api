@@ -1,7 +1,7 @@
 const { describe, it, expect } = require('@jest/globals');
 const stringsHelper = require('../../src/helpers/strings');
 
-describe('String Helper test casses', () => {
+describe('String Helper test cases', () => {
   it('Returns true if a string contains only alphanumeric characters', () => {
     const stringA = 'abc1234';
     const stringB = 'ABCD';
