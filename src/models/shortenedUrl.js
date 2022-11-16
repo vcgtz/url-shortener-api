@@ -8,7 +8,7 @@ const shortenedUrlSchema = new Schema(
       type: String,
       required: [true, 'The source url is required'],
     },
-    urlCode: {
+    code: {
       type: String,
       minLength: 1,
       maxLength: 24,
@@ -25,8 +25,8 @@ const shortenedUrlSchema = new Schema(
 );
 
 // eslint-disable-next-line func-names
-shortenedUrlSchema.statics.existsUrlCode = async function (code) {
-  return (await this.count({ urlCode: code })) > 0;
+shortenedUrlSchema.statics.existsCode = async function (code) {
+  return (await this.count({ code })) > 0;
 };
 
 // eslint-disable-next-line func-names
@@ -40,7 +40,7 @@ shortenedUrlSchema.pre('save', async function (next) {
     await uniqueId.save();
 
     this.uniqueId = uniqueId;
-    this.urlCode = convertToBase62(uniqueId.value).padStart('6', '0');
+    this.code = convertToBase62(uniqueId.value).padStart('6', '0');
   } catch (err) {
     console.log(err);
   }
