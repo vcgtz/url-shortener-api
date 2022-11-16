@@ -40,7 +40,7 @@ shortenedUrlSchema.pre('save', async function (next) {
     await uniqueId.save();
 
     this.uniqueId = uniqueId;
-    this.urlCode = convertToBase62(uniqueId.value);
+    this.urlCode = convertToBase62(uniqueId.value).padStart('6', '0');
   } catch (err) {
     console.log(err);
   }
