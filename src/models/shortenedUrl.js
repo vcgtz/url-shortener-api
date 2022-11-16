@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const UniqueId = require('./uniqueId');
-const { convertToBase62 } = require('../helpers/numbers');
+const { convertToBase62 } = require('../helpers/base62');
 
 const shortenedUrlSchema = new Schema(
   {

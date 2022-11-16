@@ -1,6 +1,4 @@
 const { isUrlValid } = require('../helpers/url');
-const { isAlphaNumeric } = require('../helpers/strings');
-const ShortenedUrl = require('../models/shortenedUrl');
 const status = require('../constants/status');
 
 const validateNewShortenedUrl = async (req, res, next) => {

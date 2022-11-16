@@ -1,8 +1,8 @@
 const { describe, it, expect } = require('@jest/globals');
-const stringsHelper = require('../../src/helpers/strings');
+const stringsHelper = require('../../src/helpers/string');
 
-describe('String Helper test cases', () => {
-  it('Returns true if a string contains only alphanumeric characters', () => {
+describe('Test cases for the string.js helper', () => {
+  it('isAlphaNumeric() returns true when the string contains only alphanumeric characters', () => {
     const stringA = 'abc1234';
     const stringB = 'ABCD';
     const stringC = '1234';
@@ -16,7 +16,7 @@ describe('String Helper test cases', () => {
     expect(stringsHelper.isAlphaNumeric(stringE)).toBe(true);
   });
 
-  it('Returns false if a string contains a non-alphanumeric character', () => {
+  it('isAlphaNumeric() returns false when the string contains only alphanumeric characters', () => {
     const stringA = 'abcd#456';
     const stringB = '!@#$%%^^';
     const stringC = 'abcde 1234';

@@ -11,12 +11,12 @@ const ShortenedUrl = require('../src/models/shortenedUrl');
 const status = require('../src/constants/status');
 const app = require('../src/server');
 
-describe('Testing API success requests when creating shortened urls', () => {
+describe('Test cases for the endpoint to generate a shortened URL', () => {
   beforeEach(async () => {
     await mongoose.connect({ hideLogs: true });
   });
 
-  it('generates a shortened url', async () => {
+  it('Return status 200 and "ok" when shorten a valid URL ', async () => {
     const response = await request(app)
       .post('/shortener')
       .send({ url: 'https://vicentegtz.com/about/' });
@@ -25,20 +25,7 @@ describe('Testing API success requests when creating shortened urls', () => {
     expect(response.body.status).toBe('ok');
   });
 
-  afterEach(async () => {
-    await ShortenedUrl.deleteMany({
-      source: 'https://vicentegtz.com/about/',
-    }).exec();
-    await mongoose.disconnect();
-  });
-});
-
-describe('Testing API errors requests when creating shortened urls', () => {
-  beforeEach(async () => {
-    await mongoose.connect({ hideLogs: true });
-  });
-
-  it('returns a status 400 if the url is empty', async () => {
+  it('Return status 400 and "The url is not valid" error when shorten an empty URL', async () => {
     const response = await request(app).post('/shortener').send({});
 
     expect(response.status).toBe(status.BAD_REQUEST);
@@ -46,7 +33,7 @@ describe('Testing API errors requests when creating shortened urls', () => {
     expect(response.body.errors[0].message).toBe('The url is not valid');
   });
 
-  it('returns a status 400 if the url is not valid', async () => {
+  it('Return status 400 and "The url is not valid" error when shorten an invalid URL', async () => {
     const response = await request(app).post('/shortener').send({
       url: 'hello',
     });
@@ -57,6 +44,9 @@ describe('Testing API errors requests when creating shortened urls', () => {
   });
 
   afterEach(async () => {
+    await ShortenedUrl.deleteMany({
+      source: 'https://vicentegtz.com/about/',
+    }).exec();
     await mongoose.disconnect();
   });
 });

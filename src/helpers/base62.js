@@ -1,9 +1,4 @@
 /* eslint-disable function-paren-newline */
-/**
- * Reference: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/from#generador_de_secuencia_(rango)
- *
- */
-
 const range = (start, end, step = 1) =>
   Array.from({ length: (end - start) / step + 1 }, (_, i) => start + i * step);
 
@@ -24,6 +19,19 @@ const getBase62Chars = () => {
 
   return [...numbers, ...upperCaseChars, ...lowerCaseChars];
 };
+
+const isBase10 = (base10) =>
+  base10
+    .toString()
+    .split('')
+    .every((v) => {
+      const s = `${v}`;
+
+      return (
+        s.charCodeAt(0) >= '0'.charCodeAt(0) &&
+        s.charCodeAt(0) <= '9'.charCodeAt(0)
+      );
+    });
 
 const convertToBase62 = (base10) => {
   const base62Chars = getBase62Chars();
@@ -51,5 +59,8 @@ const convertToBase62 = (base10) => {
 module.exports = {
   convertToBase62,
   getBase62Chars,
+  getLowerCharsArray,
+  getUpperCharsArray,
+  isBase10,
   range,
 };
